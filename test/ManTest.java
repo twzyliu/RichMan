@@ -17,4 +17,16 @@ public class ManTest {
         man.roll(STEP);
         assertThat(man.getPosition(), is(position + STEP));
     }
+
+    @Test
+    public void should_buy_building_when_man_on_the_empty_land() throws Exception {
+        Man man = new Man();
+        man.roll(STEP);
+        Building building = new Building(man.getPosition());
+        int money = man.getMoney();
+        int buildingNum = man.getBuildingNum();
+        man.buyBuilding(building);
+        assertThat(man.getMoney(), is(money - building.getPrice()));
+        assertThat(man.getBuildingNum(), is(buildingNum + 1));
+    }
 }
